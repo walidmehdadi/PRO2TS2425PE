@@ -61,9 +61,10 @@ class Library {
     - IBookManagement bookManagement
     --
     + void Work()
-    + void BorrowBookInteraction()
-    + void ReturnBookInteraction()
-    + void DisplayAvailableBooks()
+    + void BorrowBookInteraction(int bookId, int userId, string returnDateInput)
+    + void ReturnBookInteraction(int bookId)
+    + void BorrowBooksInteraction(List<int> bookIds, int userId, string returnDateInput)
+    + void ReturnBooksInteraction(List<int> bookIds)
     + bool IsValidReturnDate(string returnDate)
 }
 
