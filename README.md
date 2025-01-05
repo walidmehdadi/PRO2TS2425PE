@@ -77,7 +77,6 @@ IBookInfoProvider o-down- Book
 ## Test cases
 
 * Als een boek beschikbaar is voor uitleen --> boek kan worden uitgeleend
-* Als een boek nog niet is uitgeleend --> boek is beschikbaar voor uitleen
 * Als een boek wordt teruggebracht --> boek wordt weer beschikbaar
 * Als een gebruiker probeert een boek uit te lenen dat al uitgeleend is --> foutmelding "boek niet beschikbaar"
 * Als een gebruiker probeert een boek te reserveren met een terugbrengdatum in het verleden --> foutmelding "ongeldige datum"
