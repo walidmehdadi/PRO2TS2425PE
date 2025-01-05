@@ -23,46 +23,54 @@ De structuur is simpel en overzichtelijk. Elk onderdeel doet één specifieke ta
 ## Class diagram
 
 ```plantuml
-class LeenboekBeheerSysteem {
-    - List<Book> books
-    - List<Loan> loans
+class Book {
+    - int Id
+    - string Title
+    - bool isAvailable
     --
-    + void BorrowBook(bookId: int, userId: int)
-    + void ReturnBook(bookId: int)
-    + List<Book> GetAvailableBooks()
+    + bool IsAvailable()
 }
 
 interface IBookInfoProvider {
-    + {abstract} Book GetBookInfo(bookId: int)
-}
-
-class Book {
-    - int id
-    - String title
-    - boolean isAvailable
-    --
-    + boolean IsAvailable()
-}
-
-class Loan {
-    - int bookId
-    - int userId
-    - DateTime loanDate
-    - DateTime returnDate
-    --
-    + boolean IsOverdue()
+    + string Url
+    + List<Book> GetBooks()
+    + Book GetBookInfo(int bookId)
 }
 
 class BookInfoProvider {
-    - String url
+    - string Url
     --
-    + Book GetBookInfo(bookId: int)
+    + List<Book> GetBooks()
+    + Book GetBookInfo(int bookId)
 }
 
-LeenboekBeheerSysteem o-- IBookInfoProvider
-LeenboekBeheerSysteem o-- Loan
-LeenboekBeheerSysteem o-- Book
+interface IBookManagement {
+    + void BorrowBook(int bookId, int userId)
+    + void ReturnBook(int bookId)
+}
+
+class BookManagement {
+    - IBookInfoProvider bookInfoProvider
+    --
+    + void BorrowBook(int bookId, int userId)
+    + void ReturnBook(int bookId)
+}
+
+class Library {
+    - IBookInfoProvider bookInfoProvider
+    - IBookManagement bookManagement
+    --
+    + void Work()
+    + void BorrowBookInteraction()
+    + void ReturnBookInteraction()
+    + void DisplayAvailableBooks()
+}
+
 BookInfoProvider -up-|> IBookInfoProvider
+BookManagement -up-|> IBookManagement
+Library o-down- IBookInfoProvider
+Library o-down- IBookManagement
+IBookInfoProvider o-down- Book
 ```
 
 ## Test cases
