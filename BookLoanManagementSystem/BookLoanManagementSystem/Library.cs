@@ -17,66 +17,71 @@ namespace BookLoanManagementSystem
             this.bookManagement = bookManagement;
         }
 
-        public void Work()
+        public void BorrowBookInteraction(int bookId, int userId, string returnDateInput)
         {
-            Console.WriteLine("Library system is running...");
-            Console.WriteLine("Available options:");
-            Console.WriteLine("1. Borrow a book");
-            Console.WriteLine("2. Return a book");
-            Console.WriteLine("3. View available books");
-            Console.WriteLine("4. Exit");
-
-            while (true)
+            try
             {
-                Console.Write("Enter your choice: ");
-                string choice = Console.ReadLine();
-
-                switch (choice)
+                if (!IsValidReturnDate(returnDateInput))
                 {
-                    case "1":
-                        BorrowBookInteraction();
-                        break;
-                    case "2":
-                        ReturnBookInteraction();
-                        break;
-                    case "3":
-                        DisplayAvailableBooks();
-                        break;
-                    case "4":
-                        Console.WriteLine("Exiting...");
+                    Console.WriteLine("Error: Invalid return date. Return date cannot be in the past.");
+                    return;
+                }
+
+                // Fetch book info and handle any potential exception
+                var book = bookInfoProvider.GetBookInfo(bookId);
+                if (book == null || !book.isAvailable)
+                {
+                    Console.WriteLine("Error: Book not available.");
+                    return;
+                }
+
+                // Proceed with borrowing the book
+                bookManagement.BorrowBook(bookId, userId);
+                Console.WriteLine("Book borrowed");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error: Unable to fetch book information.");
+                // Handle the exception and prevent any further action
+            }
+        }
+
+        public void BorrowBooksInteraction(List<int> bookIds, int userId, string returnDateInput)
+        {
+            foreach (var bookId in bookIds)
+            {
+                try
+                {
+                    if (!IsValidReturnDate(returnDateInput))
+                    {
+                        Console.WriteLine("Error: Invalid return date. Return date cannot be in the past.");
                         return;
-                    default:
-                        Console.WriteLine("Invalid choice. Please try again.");
-                        break;
+                    }
+
+                    // Fetch book info and handle any potential exception
+                    var book = bookInfoProvider.GetBookInfo(bookId);
+                    if (book == null || !book.isAvailable)
+                    {
+                        Console.WriteLine("Error: Book not available.");
+                        return;
+                    }
+
+                    // Proceed with borrowing the book
+                    bookManagement.BorrowBook(bookId, userId);
+                    Console.WriteLine("Book borrowed");
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Error: Unable to fetch book information.");
+                    // Handle the exception and prevent any further action
                 }
             }
         }
 
-        private void BorrowBookInteraction()
+        public void ReturnBookInteraction(int bookId)
         {
             try
             {
-                Console.Write("Enter the book ID: ");
-                int bookId = int.Parse(Console.ReadLine());
-                Console.Write("Enter the user ID: ");
-                int userId = int.Parse(Console.ReadLine());
-
-                // Borrow the book using BookManagement
-                bookManagement.BorrowBook(bookId, userId);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-        }
-
-        private void ReturnBookInteraction()
-        {
-            try
-            {
-                Console.Write("Enter the book ID: ");
-                int bookId = int.Parse(Console.ReadLine());
-
                 bookManagement.ReturnBook(bookId);
                 Console.WriteLine("Book successfully returned.");
             }
@@ -85,34 +90,31 @@ namespace BookLoanManagementSystem
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
-
-        private void DisplayAvailableBooks()
+        public void ReturnBooksInteraction(List<int> bookIds)
         {
-            List<Book> availableBooks = new List<Book>();
-
-            // Use GetBooks method to get all books and check availability
-            var allBooks = bookInfoProvider.GetBooks();
-            foreach (var book in allBooks)
+            foreach (var bookId in bookIds)
             {
-                if (book.IsAvailable()) // Check if the book is available
+                try
                 {
-                    availableBooks.Add(book);
+                    bookManagement.ReturnBook(bookId);
+                    Console.WriteLine("Book successfully returned.");
                 }
-            }
-
-            if (availableBooks.Count == 0)
-            {
-                Console.WriteLine("No books are currently available.");
-            }
-            else
-            {
-                Console.WriteLine("Available books:");
-                foreach (var book in availableBooks)
+                catch (Exception ex)
                 {
-                    Console.WriteLine($"ID: {book.Id}, Title: {book.Title}");
+                    Console.WriteLine($"Error: {ex.Message}");
                 }
             }
         }
 
+        public bool IsValidReturnDate(string returnDate)
+        {
+            DateTime validDate;
+            // Check if the return date is a valid DateTime and is not in the past
+            if (DateTime.TryParse(returnDate, out validDate) && validDate >= DateTime.Now)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
