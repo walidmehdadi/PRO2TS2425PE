@@ -23,7 +23,7 @@ De structuur is simpel en overzichtelijk. Elk onderdeel doet één specifieke ta
 ## Class diagram
 
 ```plantuml
-class LeenboekBeheerSysteem {
+class BookLoanManagementSystem {
     - List<Book> books
     - List<Loan> loans
     --
@@ -59,9 +59,9 @@ class BookInfoProvider {
     + Book GetBookInfo(bookId: int)
 }
 
-LeenboekBeheerSysteem o-- IBookInfoProvider
-LeenboekBeheerSysteem o-- Loan
-LeenboekBeheerSysteem o-- Book
+BookLoanManagementSystem o-- IBookInfoProvider
+BookLoanManagementSystem o-- Loan
+BookLoanManagementSystem o-- Book
 BookInfoProvider -up-|> IBookInfoProvider
 ```
 
