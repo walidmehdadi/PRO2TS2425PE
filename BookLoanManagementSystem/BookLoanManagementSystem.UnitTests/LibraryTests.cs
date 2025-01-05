@@ -127,12 +127,9 @@ namespace BookLoanManagementSystem.UnitTests
         public void WhenMultipleBooksAreReturnedAllAreMarkedAsAvailable()
         {
             // --- Arrange ---
-
-
-            // Mock the behavior for returning each book
             bookInfoProviderMock.Setup(x => x.GetBookInfo(It.IsAny<int>())).Returns<int>((id) => unavailableBooks.FirstOrDefault(b => b.Id == id));
 
-            // Act: Call the method to return multiple books
+            // Act:
             library.ReturnBooksInteraction(unavailableIds);
 
             // Assert: Verify that each book's ReturnBook method was called and the availability was updated
