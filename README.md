@@ -5,19 +5,19 @@ De applicatie is opgebouwd uit een paar eenvoudige onderdelen die samenwerken om
 ### 1. Beslissingsmodule
 De beslissingsmodule bepaalt of een boek beschikbaar is om uit te lenen:
 
-Het kijkt of het boek al is uitgeleend.
-Als het boek beschikbaar is, kan de gebruiker het lenen, anders niet.
+* Het kijkt of het boek al is uitgeleend.
+* Als het boek beschikbaar is, kan de gebruiker het lenen, anders niet.
 ### 2. API-consumerende Klasse
 Deze klasse haalt boekinformatie en uitleengegevens op uit een externe bron, zoals een API. Het zorgt ervoor dat de applicatie de juiste informatie heeft over boeken (bijv. titel, beschikbaarheid).
 
 ### 3. Acties
 De applicatie voert de volgende acties uit:
 
-Lenen van een boek (maakt het boek tijdelijk onbeschikbaar).
-Terugbrengen van een boek (maakt het boek weer beschikbaar).
-Toon de lijst van beschikbare boeken.
+* Lenen van een boek (maakt het boek tijdelijk onbeschikbaar).
+* Terugbrengen van een boek (maakt het boek weer beschikbaar).
+* Toon de lijst van beschikbare boeken.
 
-Waarom deze structuur?
+#### Waarom deze structuur?
 De structuur is simpel en overzichtelijk. Elk onderdeel doet één specifieke taak, waardoor het makkelijk is om fouten op te lossen en de applicatie uit te breiden.
 
 ## Class diagram
