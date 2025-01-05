@@ -23,6 +23,7 @@ De structuur is simpel en overzichtelijk. Elk onderdeel doet één specifieke ta
 ## Class diagram
 
 ```plantuml
+class Library {
     - List<Book> books
     - List<Loan> loans
     --
