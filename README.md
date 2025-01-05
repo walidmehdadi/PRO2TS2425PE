@@ -80,7 +80,6 @@ IBookInfoProvider o-down- Book
 * Als een boek wordt teruggebracht --> boek wordt weer beschikbaar
 * Als een gebruiker probeert een boek uit te lenen dat al uitgeleend is --> foutmelding "boek niet beschikbaar"
 * Als een gebruiker probeert een boek te reserveren met een terugbrengdatum in het verleden --> foutmelding "ongeldige datum"
-* Als een boek wordt teruggebracht --> uitleengegevens worden correct bijgewerkt
 * Als er een probleem is met het ophalen van boekinformatie uit de database of API --> exception vangen, geen verdere actie met het boek
 * Als een gebruiker meerdere boeken tegelijk probeert uit te lenen --> de boeken worden één voor één verwerkt
 * Als meerdere boeken tegelijk worden teruggebracht --> ze worden allemaal als beschikbaar gemarkeerd
