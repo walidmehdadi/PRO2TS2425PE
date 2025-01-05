@@ -23,17 +23,27 @@ De structuur is simpel en overzichtelijk. Elk onderdeel doet één specifieke ta
 ## Class diagram
 
 ```plantuml
-class BookLoanManagementSystem {
     - List<Book> books
     - List<Loan> loans
     --
-    + void BorrowBook(bookId: int, userId: int)
-    + void ReturnBook(bookId: int)
-    + List<Book> GetAvailableBooks()
+    + void Work()
 }
 
 interface IBookInfoProvider {
     + {abstract} Book GetBookInfo(bookId: int)
+}
+
+interface IBookManagement {
+    + {abstract} void BorrowBook(bookId: int, userId: int)
+    + {abstract} void ReturnBook(bookId: int)
+    + List<Book> GetAvailableBooks()
+}
+
+class BookManagement {
+    --
+    + void BorrowBook(bookId: int, userId: int)
+    + void ReturnBook(bookId: int)
+    + List<Book> GetAvailableBooks()
 }
 
 class Book {
@@ -59,10 +69,12 @@ class BookInfoProvider {
     + Book GetBookInfo(bookId: int)
 }
 
-BookLoanManagementSystem o-- IBookInfoProvider
-BookLoanManagementSystem o-- Loan
-BookLoanManagementSystem o-- Book
+Library o-- IBookInfoProvider
+Library o-- IBookManagement
+Library o-- Loan
+Library o-- Book
 BookInfoProvider -up-|> IBookInfoProvider
+BookManagement -up-|> IBookManagement
 ```
 
 ## Test cases
