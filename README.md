@@ -74,3 +74,15 @@ BookInfoProvider -up-|> IBookInfoProvider
 * Als een gebruiker probeert een boek te reserveren met een terugbrengdatum in het verleden --> foutmelding "ongeldige datum"
 * Als een boek wordt teruggebracht --> uitleengegevens worden correct bijgewerkt
 * Als er een probleem is met het ophalen van boekinformatie uit de database of API --> exception vangen, geen verdere actie met het boek
+* Als een gebruiker meerdere boeken tegelijk probeert uit te lenen --> de boeken worden één voor één verwerkt
+* Als meerdere boeken tegelijk worden teruggebracht --> ze worden allemaal als beschikbaar gemarkeerd
+
+De testen zijn opgesteld door gebruik te maken van het ZOMBIES-principe, waarbij de tests in verschillende fasen zijn opgebouwd:
+
+1. Zero Tests: We beginnen met eenvoudige scenario's, zoals het uitlenen van een beschikbaar boek, en controleren of het boek beschikbaar is als het niet is uitgeleend.
+
+2. One Tests: We breiden de testen uit naar situaties waarin een gebruiker probeert een boek te reserveren met een verkeerde datum of een boek probeert uit te lenen dat al is uitgeleend. Deze testen gaan over foutafhandelingsscenario's.
+
+3. Many Tests: Hier testen we complexere situaties, zoals meerdere boeken tegelijk uitlenen of terugbrengen, waarbij we testen of de boeken correct één voor één verwerkt worden of correct als beschikbaar worden gemarkeerd.
+
+4. Exception Handling en Externe Fouten: We testen ook hoe de applicatie omgaat met externe fouten, zoals problemen met het ophalen van boekinformatie, en zorgen ervoor dat de applicatie geen acties uitvoert in geval van een error.
