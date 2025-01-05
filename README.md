@@ -64,6 +64,7 @@ class Library {
     + void BorrowBookInteraction()
     + void ReturnBookInteraction()
     + void DisplayAvailableBooks()
+    + bool IsValidReturnDate(string returnDate)
 }
 
 BookInfoProvider -up-|> IBookInfoProvider
